@@ -1,0 +1,89 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #cff;
+}
+html, body{
+   height: 100%
+}
+
+.jumbotron {
+    background-color: #9fc;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 330px;
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+}
+
+html {
+    -webkit-text-size-adjust: none;
+}
+
+img {
+    vertical-align: bottom;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+strong {
+    font-weight: bold;
+}
+
+ol, ul {
+    list-style: none;
+}
+table {
+    table-layout: fixed;
+}
+
+th {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: 1px solid #aaa;
+    padding-left: 5px;
+}
+
+td {
+    border: 1px solid #aaa;
+    padding-left: 5px;
+    word-wrap:break-word;
+}
+
+
+.clearFloat {
+    clear: both;
+}
+

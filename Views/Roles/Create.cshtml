@@ -1,0 +1,33 @@
+﻿@model MvcIdentity.Models.RoleModel
+
+@{ ViewBag.Title = "Create"; }
+
+<h2>Create Role</h2>
+@Html.ActionLink("List Roles", "Index") | 
+@Html.ActionLink("Manage User Role", "ManageUserRoles")
+<hr />
+<div class="container">
+    @using (Html.BeginForm( "Create","Roles",FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            @Html.LabelFor(m=>m.Name, new { @class= "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            </div>
+        </div>
+         <div class="form-group">
+            @Html.LabelFor(m=>m.RoleFlags, new { @class= "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.RoleFlags, new { @class = "form-control" })
+            </div>
+        </div>
+       <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>

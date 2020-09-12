@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MvcIdentity.Models.ApplicationRole>
+@{ ViewBag.Title = "Index"; }
+
+<h2>Roles Listing </h2>
+
+@Html.ActionLink("Create New Role", "Create") |
+@Html.ActionLink("Manage User Role", "ManageUserRoles")|
+@Html.ActionLink("Bulk Manage User Roles", "UserWithRoles")
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <table class="table table-bordered">
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@role.Name </strong>
+                        </td>
+                        <td>
+                            <span onclick="return confirm('Are you sure to delete?')">
+                                @Html.ActionLink("Delete", "Delete", new { RoleName = @role.Name })
+                            </span>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { roleName = @role.Name })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => role.RoleFlags)
+                        </td>
+                    </tr>
+                 }
+            </table>
+        </div>
+    </div>
+</div>

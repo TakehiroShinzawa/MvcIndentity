@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - マイ ASP.NET アプリケーション</title>
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">
+            @Html.Image("~/Images/bootstrap-solid.svg", "", new { width = "30", height = "30", @class = "d-inline-block align-top" })
+            Bootstrap
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">@Html.ActionLink("ホーム", "Index", "Home", null, new { @class = "nav-link active" })</li>
+                <li class="nav-item">@Html.ActionLink("詳細", "About", "Home", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("問い合わせ", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("社内システム", "BusinessForm", "Home", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("ロール", "Index", "Roles", null, new { @class = "nav-link" })</li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">ドロップダウン</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("問い合わせ", "Contact", "Home", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("参考書籍", "Index", "Articles", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("メンバー", "Index", "Members", null, new { @class = "dropdown-item" })
+                    </div><!-- ./dropdown-menu -->
+            </ul>
+            <ul class="navbar-nav">
+                @Html.Partial("_LoginPartial")
+            </ul>
+        </div>
+    </nav>
+    <div style="height : 60px"></div>@*ハンバーガーメニューの高さをパディングする*@
+    <div class="clearFloat">
+        @{
+            var s = Path.GetFileName(((RazorView)Html.ViewContext.View).ViewPath);
+            if (s != "BusinessForm.cshtml")
+            {
+                <h3>@Html.GlobalResesource("MysiteRes", "Greeting")</h3>
+                <div>@Html.GlobalResesource("MysiteRes", "Today", DateTime.Now.ToLongDateString())</div>
+                <div>@Html.LocalResource("Night", "_Layout")</div>
+                <div>@Html.LocalResource("Price", "_Layout", (100).ToString("c"))</div>
+            }
+        }
+</div>
+        <br />
+        <div class="container-fluid" style="height:100%">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - マイ ASP.NET アプリケーション</p>
+            </footer>
+        </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    </body>
+</html>

@@ -1,0 +1,77 @@
+﻿@model MvcIdentity.Models.Author
+
+<h2>@ViewBag.Title</h2>
+@{ bool isEdit = ViewBag.Title == "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Author</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (isEdit)
+        {
+            @Html.HiddenFor(model => model.Id);
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BirthStr, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BirthStr, new { htmlAttributes = new { @class = "form-control calAt" } })
+                @Html.ValidationMessageFor(model => model.BirthStr, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Birth)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.Return != "")
+{
+    using (Html.BeginForm((string)ViewBag.Return, "Home"))
+    {
+        <input type="hidden" name="action" value="1" />
+        <input type="hidden" name="worktype" value="1" />
+        <input type="hidden" name="op" value="@ViewBag.Operator" />
+        <input type="submit" value="Back to List" class="btn btn-primary position-left" />
+    }
+}
+else
+{
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+@section Scripts {
+    <script>
+        $(function () {
+            $('.calAt').change(function () {
+                $('[name=Birth]').val($(this).val());
+            });
+        });
+    </script>
+}

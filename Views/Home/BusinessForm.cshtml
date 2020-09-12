@@ -1,0 +1,289 @@
+﻿@model MvcIdentity.Models.BusinessMode
+
+@{
+    ViewBag.Title = "BusinessForm";
+    var opName = Model.Operrators[0].UserName ?? "";
+}
+
+<h2>BusinessForm</h2>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb container">
+        <li class="breadcrumb-item">
+            @Html.ActionLink("Top", "Index")
+        </li>
+        @switch (Model.State)
+        {
+            case "0":
+                <li class="breadcrumb-item active">
+                    社内システム
+                </li>
+                break;
+            case "1": //マスタメンテナンス
+                <li class="breadcrumb-item">
+                    @Html.ActionLink("社内システム", "BusinessForm")
+                </li>
+                <li class="breadcrumb-item active">
+                    マスタメンテナンス
+                </li>
+                break;
+            case "1,1"://著者マスター一覧
+                <li class="breadcrumb-item">
+                    @Html.ActionLink("社内システム", "BusinessForm")
+                </li>
+                <li class="breadcrumb-item">
+                    @using (Html.BeginForm())
+                    {
+                        <input type="hidden" name="action" value="0" />
+                        <input type="hidden" name="worktype" value="1" />
+                        <input type="hidden" name="op" value="@opName" />
+                        <input type="submit" value="マスタメンテナンス" class="my-a-link" />
+                    }
+                    @*@Ajax.ActionLink("マスタメンテナンス", "BusinessForm", new { worktype = "1", action = "0", op = opName }, new AjaxOptions { HttpMethod = "POST" })*@
+                </li>
+                <li class="breadcrumb-item active">
+                    著者マスター
+                </li>
+                break;
+            case "1,2"://メンバーマスター一覧
+                <li class="breadcrumb-item">
+                    @Html.ActionLink("社内システム", "BusinessForm")
+                </li>
+                <li class="breadcrumb-item">
+                    @using (Html.BeginForm())
+                    {
+                        <input type="hidden" name="action" value="0" />
+                        <input type="hidden" name="worktype" value="1" />
+                        <input type="hidden" name="op" value="@opName" />
+                        <input type="submit" value="マスタメンテナンス" class="my-a-link" />
+                    }
+                    @*@Ajax.ActionLink("マスタメンテナンス", "BusinessForm", new { worktype = "1", action = "0", op = opName }, new AjaxOptions { HttpMethod = "POST" })*@
+                </li>
+                <li class="breadcrumb-item active">
+                    メンバーマスタ
+                </li>
+                break;
+        }
+    </ol>
+</nav>
+<hr />
+<style>
+    thead, tbody {
+        display: block;
+    }
+
+    tbody {
+        overflow-y: auto;
+        height: 110px;
+    }
+
+    .cl3 {
+        width: 300px;
+        min-width: 300px;
+    }
+
+    .cl4 {
+        width: 200px;
+        min-width: 200px;
+    }
+
+    .tblRadio {
+        width: 25px;
+        min-width: 25px;
+        margin: auto;
+    }
+
+    .position-left {
+        display: block;
+        margin: 0 0 0 auto;
+    }
+    .my-a-link {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-family: inherit;
+        font-style: inherit;
+        font-weight: inherit;
+        color: #007bff;
+        text-decoration: none;
+        background-color: transparent;
+    }
+    .my-a-link:hover{
+        color: #0056b3;
+        text-decoration: underline;
+    }
+</style>
+
+
+@using (Html.BeginForm())
+{
+    switch (Model.State)
+    {
+        case "0":
+            <div class="container">
+                <fieldset>
+                    <legend>オペレーターリスト</legend>
+                    <table style="width: 945px;">
+                        <caption>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @:作業を選んでください
+                            }
+                            else
+                            {
+                                @:オペレーターを選択し作業を選んでください
+                            }
+                        </caption>
+                        <thead style="width: 500px;">
+                            <tr>
+                                <th class="tblRadio"></th>
+                                <th class="cl3">Name</th>
+                                <th class="cl3">Page</th>
+                                <th class="cl3">Twitter</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var op in Model.Operrators)
+                            {
+                                <tr>
+                                    <td class="tblRadio">
+                                        @if (Model.Operrators.Count == 1)
+                                        {
+                                            <input type="radio" required name="op" value="@op.UserName" checked="checked" />
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" required name="op" value="@op.UserName" />
+                                        }
+                                    </td>
+                                    <td class="cl3">@Html.DisplayFor(modelItem => op.UserName)</td>
+                                    <td class="cl3">@Html.DisplayFor(modelItem => op.MyPage)</td>
+                                    <td class="cl3">@Html.DisplayFor(modelItem => op.Twitter)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </fieldset>
+                <input type="hidden" value="@Model.State" name="action" />
+                <div class="row" style="margin-top: 5px;">
+                    <span style="margin: auto 0 auto 0">作業内容</span>
+                    <select required name="worktype">
+                        <option></option>
+                        <option value="1">マスタメンテナンス</option>
+                        <option value="2">トランザクションメンテナンス</option>
+                        <option value="99">その他</option>
+                    </select>
+                    <input type="submit" value="次へ" class="btn btn-primary position-left" />
+                </div>
+            </div>
+            break;
+
+        case "1": //マスタメンテナンス
+            var op1 = Model.Operrators[0];
+            <h2>オペレーター: @opName</h2>
+            <div class="container">
+                <input type="hidden" value="@Model.State" name="action" />
+                <input type="hidden" value="@op1.UserName" name="op" />
+                <div class="row" style="margin-top: 5px;">
+                    <span style="margin: auto 0 auto 0">作業内容</span>
+                    <select required name="worktype">
+                        <option></option>
+                        <option value="1">著者マスター</option>
+                        <option value="2">メンバーマスター</option>
+                    </select>
+                    <input type="submit" value="次へ" class="btn btn-primary position-left" />
+                </div>
+            </div>
+            break;
+        case "1,1"://著者マスター一覧
+            <h2>オペレーター: @opName</h2>
+            <div class="container">
+                <fieldset>
+                    <legend>著者リスト</legend>
+                    @Html.ActionLink("Create New", "Create", "Authors", new { op = opName, ret = "BusinessForm" }, null)
+                    <table style="width: 820px; border:1px solid;">
+                        <caption>作業を選んでください</caption>
+                        <thead>
+                            <tr>
+                                <th class="cl4">Id</th>
+                                <th class="cl4">Name</th>
+                                <th class="cl4">Email</th>
+                                <th class="cl4">作業内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var op in Model.Authors)
+                            {
+                                <tr>
+                                    <td class="cl4">@Html.DisplayFor(modelItem => op.Id)</td>
+                                    <td class="cl4">@Html.DisplayFor(modelItem => op.Name)</td>
+                                    <td class="cl4">@Html.DisplayFor(modelItem => op.Email)</td>
+                                    <td class="cl4">
+                                        @Html.ActionLink("Edit", "Edit", "Authors", new { id = op.Id, op = opName, ret = "BusinessForm" }, null) |
+                                        @Html.ActionLink("Details", "Details", "Authors", new { id = op.Id, op = opName, ret = "BusinessForm" }, null) |
+                                        @Html.ActionLink("Delete", "Delete", "Authors", new { id = op.Id, op = opName, ret = "BusinessForm" }, null)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </fieldset>
+                <input type="hidden" value="@Model.State" name="action" />
+            </div>
+            break;
+        case "1,2"://メンバーマスター一覧
+            <h2>オペレーター: @opName</h2>
+            <div class="container">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <fieldset>
+                        <legend>メンバーリスト</legend>
+                        <table style="width: 920px;border:1px solid;">
+                            <thead style="width: 500px;">
+                                <tr>
+                                    <th class="cl3">Id</th>
+                                    <th class="cl3">Name</th>
+                                    <th class="cl3">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ 
+                                    var members = Model.MemberInfos.ToList();
+                                    var orderLength = members.Count();
+                                    var indexname = "";
+                                }
+                                @for ( int i = 0;i < orderLength; i++)
+                                {
+                                    indexname = $"members[{i}";
+                                    <tr>
+                                        <td class="cl3">
+                                            @Html.DisplayFor(modelItem => members[i].Id)
+                                            <input type="hidden" value="@members[i].Id" name="@indexname].Id" />
+                                        </td>
+                                        <td class="cl3">@Html.EditorFor(modelItem => members[i].Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                        <td class="cl3">@Html.EditorFor(modelItem => members[i].Email, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </fieldset>
+                    <input type = "hidden" value = "@Model.State" name = "action" />
+                    <input type = "hidden" value = "3" name = "worktype" />
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                }
+            </div>
+            break;
+        default:
+            <h2>オペレーター: @opName</h2>
+            <hr />
+            <div class="container">
+                <h3>未実装</h3>
+            </div>
+            break;
+
+    }
+}
+@*<div>
+        <button type="button" onclick="history.back()" class="btn btn-primary">戻る</button>
+    </div>*@

@@ -1,0 +1,64 @@
+﻿@model MvcIdentity.Models.Author
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Author</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Birth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Birth)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Articles.First().Title)
+        </dt>
+        @foreach (var com in Model.Articles)
+        {
+            <dd>
+                 ・@Html.DisplayActionLinkFor(item => com.Title,"Details", "Articles", new { id = com.Id }, null)
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @if (ViewBag.Return != "")
+    {
+        using (Html.BeginForm((string)ViewBag.Return, "Home"))
+        {
+            <input type="hidden" name="action" value="1" />
+            <input type="hidden" name="worktype" value="1" />
+            <input type="hidden" name="op" value="@ViewBag.Operator" />
+            <input type="submit" value="Back to List" class="btn btn-primary position-left" />
+        }
+    }
+    else
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) @:|
+        @Html.ActionLink("Back to List", "Index");
+    }
+</p>

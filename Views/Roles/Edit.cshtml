@@ -1,0 +1,28 @@
+﻿@model MvcIdentity.Models.ApplicationRole
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Role</h2>
+
+@Html.ActionLink("List Roles", "Index") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
+<hr />
+<div class="container">
+    @using (Html.BeginForm( "Edit","Roles",FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            <label class = "col-md-2 control-label">RoleName</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>

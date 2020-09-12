@@ -1,0 +1,61 @@
+﻿@model MvcIdentity.Models.Comment
+
+<h2>@ViewBag.Title</h2>
+@{ bool isEdit = ViewBag.Title == "Edit";
+}
+
+<div class="card mb-3" style="max-width:100rem;">
+    <div style="text-align: center;" >
+        @Html.Image("~/images/slide_02.jpg", "topimg", new { @class = "card-img-top", style = "width:50%;" })
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">@ViewBag.ArticleName</h4>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @if (isEdit)
+        {
+            @Html.HiddenFor(model => model.Id)
+        }
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <input id="Updated" name="Updated" type="hidden" value="@DateTime.Now.ToString()" />
+
+        <div class="form-group" style="display:none;">
+            @Html.LabelFor(model => model.ArticleId, "ArticleId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                //変更不可ドロップダウンのサンプル(多分ページに複数あると失敗します)
+                @Html.DropDownList("ArticleId", null, htmlAttributes: new { @class = "form-control", onmousedown = "reset_value=this.selectedIndex", onchange = "this.selectedIndex=reset_value" })
+                @Html.ValidationMessageFor(model => model.ArticleId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+        }
+    <div>
+        @Html.ActionLink("Back to Detail", "Details", "Articles", new { id = ViewBag.ArtId }, null)
+    </div>
+    </div>
+</div>

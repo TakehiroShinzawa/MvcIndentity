@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="jumbotron">
+    <h1>Bootstrap4</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://wings.msn.to/index.php/-/A-03/978-4-297-10020-9/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="py-4">
+    <div class="container">
+        <div id="carouselControl" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselControl" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselControl" data-slide-to="1"></li>
+                <li data-target="#carouselControl" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    @Html.Image("~/images/slide_01.jpg", "Error", new { @class = "img-fluid" })
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>作成のこだわり</h2>
+                        <p>コピペです</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    @Html.Image("~/images/slide_02.jpg", "Error", new { @class = "img-fluid" })
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>ブートストラップ</h2>
+                        <p>クラス定義だけでカルーセルが動くのは凄い</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    @Html.Image("~/images/slide_03.jpg", "Error", new { @class = "img-fluid" })
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>だけどね</h2>
+                        <p>PG的には能力は上がりませんねえ</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselControl" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">前に戻る</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselControl" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">次に送る</span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container">
+        <h5 style="text-align: center">表示が小さい場合は、'Ctrl'+スクロールホイールで調整して下さい</h5>
+        <div>
+            <object data="../images/histry.pdf#toolbar=0&view=Fit&zoom=120" type="application/pdf" width="1000" height="500"></object>
+            <h5 style="text-align: center">居住地周辺</h5>
+            <div id="map" style="width: 50%;height: 500px; border: 1px solid; margin: 0 auto"></div>
+        </div>
+</div>
+<script src="~/Scripts/googleMap.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTBEHft3j8aHSes3Q1Fn4BOZeAorbW2us&callback=initMap"></script>

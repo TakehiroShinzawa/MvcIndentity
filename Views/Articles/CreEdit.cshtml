@@ -1,0 +1,153 @@
+﻿@model MvcIdentity.Models.Article
+
+<h2>@ViewBag.Title</h2>
+@{ bool isEdit = ViewBag.Title == "Edit";
+    var cnt = 0;
+}
+<style>
+    input,
+    select,
+    textarea {
+        max-width: initial;
+    }
+</style>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb container">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index","Home")">Top</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index","Articles")">書籍一覧</a>
+        </li>
+        <li class="breadcrumb-item active">
+            @if (isEdit)
+            {
+                @:編集
+            }
+            else
+            {
+                @:新規作成
+            }
+        </li>
+    </ol>
+</nav>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <h4>Article</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @if (isEdit)
+    {
+        @Html.HiddenFor(model => model.Timestamp);
+        @Html.HiddenFor(model => model.Id);
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <span class="badge badge-warning">必須</span>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+        <span class="badge badge-warning">必須</span>
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.Category, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Viewcount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.IntEditorFor(model => model.Viewcount, new { @class = "form-control col-sm-4" })
+            @Html.ValidationMessageFor(model => model.Viewcount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PubDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+            @Html.HiddenFor(Model => Model.Published)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Released, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Released)
+                @Html.ValidationMessageFor(model => model.Released, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-row">
+            著者
+        </div>
+        <ul>
+            @foreach (var au in ViewBag.Authors)
+            {
+                <li>
+                    @if (isEdit && Model.Authors != null && Model.Authors.Contains(au))
+                    {
+                        <input type="checkbox" name="auth" checked="checked" value="@au.Id" id="@string.Format("chk{0}",cnt)" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="auth" value="@au.Id" id="@string.Format("chk{0}",cnt)" />
+                    }
+                    <label for="@string.Format("chk{0}",cnt++)">
+                        @au.Name
+                        <a href="@Url.Action("Details", "Authors", new { Id = @au.Id})"><span class="badge badge-info">詳細</span></a>
+                        @*@Html.ActionLink((string) @au.Name, "Details", "Authors", new { Id = @au.Id }, null)*@
+                    </label>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    <script>
+        $(function () {
+            $('.cal').change(function () {
+                console.log($(this).val());
+                $('[name=Published]').val($(this).val());
+            });
+        });
+    </script>
+}

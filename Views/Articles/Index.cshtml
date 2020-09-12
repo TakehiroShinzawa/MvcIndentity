@@ -1,0 +1,94 @@
+﻿@model IEnumerable<MvcIdentity.Models.Article>
+
+
+<h2>@ViewBag.Title</h2>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb container">
+        <li class="breadcrumb-item">
+            <a href="/Home/Index">Top</a>
+        </li>
+        <li class="breadcrumb-item active">
+            書籍一覧
+        </li>
+    </ol>
+</nav>
+
+<div class="slider">
+    <ul>
+        <li>@Html.Image("~/Images/photo1.jpg")</li>
+        <li>@Html.Image("~/Images/photo2.jpg")</li>
+        <li>@Html.Image("~/Images/photo3.jpg")</li>
+        <li>@Html.Image("~/Images/photo4.jpg")</li>
+        <li>@Html.Image("~/Images/photo5.jpg")</li>
+    </ul>
+</div>
+
+
+<p class="clearFloat">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table-responsive table-striped">
+    <caption>書籍一覧</caption>
+    <thead>
+        <tr>
+            <th style="width:30%">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th style="width:8%">
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th style="width:auto">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th style="width:7%">
+                @Html.DisplayNameFor(model => model.Viewcount)
+            </th>
+            <th style="width:10%">
+                @Html.DisplayNameFor(model => model.Published)
+            </th>
+            <th style="width:3%" align="center">
+                @Html.DisplayNameFor(model => model.Released)
+            </th>
+            <th style="width:7%"></th>
+        </tr>
+    </thead>
+    @{ bool bAuth = User.Identity.IsAuthenticated;}
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayLinkFor(modelItem => item.Title, item.Url,null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Viewcount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Published)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.Released)
+                </td>
+                @if (bAuth)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+}
+            </tr>
+        }
+    </tbody>
+</table>

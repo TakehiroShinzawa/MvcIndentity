@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MvcIdentity.Models.UserWithRoleInfo>
+
+@{
+    ViewBag.Title = "UserWithRoles";
+}
+
+<h2>UserWithRoles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<dev class="text-danger"> @TempData["ResultMessage"]</dev>
+
+@{
+    int cnt = 1;
+    int grp = 1;
+}
+@Html.ValidationSummary("", new { @class = "text-danger" })
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            @using (Html.BeginForm("Save", "Roles", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken();
+                <td>
+                    @Html.DisplayItemFor(model => item.UserName)
+                    @Html.HiddenItemFor(model => item.UserId)
+                    @*<input id="itemUserId" name="UserId" type="hidden" value="@item.UserId" />*@
+                </td>
+                foreach (var role in item.UserRoles)
+                {
+                    <td>
+                        <div class="custom-control custom-checkbox ">
+                            @Html.CheckboxNameFor(m => role.IsInThisRole, "roll",
+                            new { @class = "custom-control-input ", id = string.Format("chkrole{0}", cnt), value = @role.RoleName })
+                            @Html.Label(role.RoleName, new { @class = "custom-control-label", @for = string.Format("chkrole{0}", cnt++) })
+                        </div>
+                    </td>
+                }
+                <td>
+                    <input type="submit" value="Save" class="btn btn-primary" id=@string.Format("submit{0}", grp++) />
+                </td>
+            }
+        </tr>
+    }
+</table>
+@Html.ActionLink("List Roles", "Index")

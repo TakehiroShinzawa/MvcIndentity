@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title =  "jQuery Page";
+}
+<ul>
+    <li>@Html.GlobalResesource("MysiteRes", "Greeting")</li>
+    <li>@Html.GlobalResesource("MysiteRes", "Today", DateTime.Now.ToLongDateString())</li>
+</ul>
+<div class="jumbotron" style="color:#fff; background:url(@Url.Content(ViewBag.BackImage)) center no-repeat; background-size: cover;">
+    <h1>jQuery</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://www.sbcr.jp/product/4797385274/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div id="wrapper">
+    <nav id="mddNav">
+        <ul>
+            <li>
+                <a href="#!">WORKS</a>
+                <div class="mddWrap">
+                    <div class="mddInner">
+                        <p><strong>WORKS</strong>作品</p>
+                        <div>
+                            <span>参考書籍</span>
+                            <ul>
+                                <li>＞@Html.ActionLink("一覧表示", "Index", "Articles")</li>
+                                <li>＞@Html.ActionLink("新規追加", "Create", "Articles")</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span>HTML/CSS</span>
+                            <ul>
+                                <li>＞<a href="#!">W3C推奨マークアップ</a></li>
+                                <li>＞<a href="#!">構築手順</a></li>
+                                <li>＞<a href="#!">構築実績</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span>SYSTEM</span>
+                            <ul>
+                                <li>＞<a href="#!">WEBシステム設計</a></li>
+                                <li>＞<a href="#!">データ解析</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.mddInner -->
+                </div><!-- /.mddWrap -->
+            </li>
+            <li>
+                <a href="#!">PRODUCT</a>
+                <div class="mddWrap">
+                    <div class="mddInner">
+                        <p><strong>PRODUCT</strong>プロダクト・サービスについて紹介します。</p>
+                        <div>
+                            <span>WEB</span>
+                            <ul>
+                                <li>＞<a href="#!">WEBサイト制作</a></li>
+                                <li>＞<a href="#!">CMS設計</a></li>
+                                <li>＞<a href="#!">制作の流れ</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span>MOBILE &amp; SMART PHONE</span>
+                            <ul>
+                                <li>＞<a href="#!">レスポンシブ制作</a></li>
+                                <li>＞<a href="#!">APP制作</a></li>
+                                <li>＞<a href="#!">使用言語</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span>SERVER</span>
+                            <ul>
+                                <li>＞<a href="#!">サーバ構築＆運営</a></li>
+                                <li>＞<a href="#!">サーバ移行</a></li>
+                                <li>＞<a href="#!">DB設計</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.mddInner -->
+                </div><!-- /.mddWrap -->
+            </li>
+            <li>
+                <a href="#!">RECRUIT</a>
+                <div class="mddWrap">
+                    <div class="mddInner">
+                        <p><strong>RECRUIT</strong>新卒・キャリア採用についてはこちらから。</p>
+                        <div>
+                            <span>新卒採用</span>
+                            <ul>
+                                <li>＞<a href="#!">募集職種</a></li>
+                                <li>＞<a href="#!">募集要項</a></li>
+                                <li>＞<a href="#!">応募フォーム</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span>キャリア採用</span>
+                            <ul>
+                                <li>＞<a href="#!">募集職種</a></li>
+                                <li>＞<a href="#!">募集要項</a></li>
+                                <li>＞<a href="#!">応募フォーム</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.mddInner -->
+                </div><!-- /.mddWrap -->
+            </li>
+            <li><a href="#!">BLOG</a></li>
+            <li><a href="#!">CONTACT</a></li>
+        </ul>
+    </nav><!-- /#mddNav -->
+
+    <div id="contents">
+
+        <p>ロール一覧は<a href="#!" class="ttpLink">こちら<span class="ttpShow">ツールチップの中身です</span></a></p>
+        <hr />
+        <p>
+            ドロップダウンの参考書籍->一覧表示からDB内のデータを見ることができます。<br />
+            ログインしていない場合、一覧のみ表示されます<br />
+            ゲストIDは、'guest' パスワードは'Guest-0'です<br />
+            上部のハンバーガーメニューからユーザーを新規登録しメール認証が済むと、詳細(Detail)の表示が出来ます<br />
+            ログイン時には二要素認証を設定してありますが、ハンバーガーメニューのログインアカウントをクリックし、TwoFactAuthenticationをDisableにすることでパスワードのみの認証になります<br />
+            さらにロールから、自分のアカウントに"Admin"を付加すると編集と削除が行えます。<br />
+            デモを一通り見たら、ハンバーガーメニューのログインアカウントをクリックし、削除してください<br />
+            消さなくても問題ないですが、メアドが私にダダ洩れになります。悪用はしませんが♪<br />
+            ほかのメニューは参考資料をコピペしてあるだけなので、ほぼ用なしです<br />
+            <hr />
+            画面上部の"こんにちは"などは、多言語化実験です。ブラウザの表示言語設定を"英語"に変えると英文字に切り替わります
+        </p>
+    </div><!-- /#contents -->
+    <style>
+        /* 本文に関連のないスタイル */
+        .row > .col, .row > [class^=col-] {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: 1px solid #aaa;
+        }
+    </style>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">モーダル</button>
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">モーダルのタイトル</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">col-md-4</div>
+                            <div class="col-md-4 ml-auto">col-md-4 auto</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ml-auto">col-md-3 auto</div>
+                            <div class="col-md-2 ml-auto">col-md-2 auto</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 ml-auto">col-md-6 auto</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                Level1:col-sm-9
+                                <div class="row">
+                                    <div class="col-8">
+                                        Level2:col8 sm6
+                                    </div>
+                                    <div class="col-4">
+                                        Level2:col4 sm6
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <a href="/Members/Index" class="modalBtn btn btn-primary">≫モーダルを開く</a>
+    <a href="/Articles/Index" class="modaliFBtn btn btn-primary">≫Ifモーダルを開く</a>
+    <br />
+    @Ajax.ActionLink("AjaxLink", "RoleIndex", "Home", 
+        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "contWrap",
+            OnBegin = "modalBefore",   OnComplete = "modalGo"}, new { @class = "btn btn-primary" })
+    <div id="modalInclude">
+        <h2>モーダルウィンドウエリア</h2>
+
+        <p>崖のはじに鉄道がかかるときは川が明るく下にのぞけたのです。ジョバンニはだんだんこころもちが明るくなって来ました。汽車が小さな小屋の前を通ってその前にしょんぼりひとりの子供が立ってこっちを見ているときなどは思わずほうと叫びました。</p>
+
+        <p>どんどんどんどん汽車は走って行きました。室中のひとたちは半分うしろの方へ倒れるようになりながら腰掛にしっかりしがみついていました。ジョバンニは思わずカムパネルラとわらいました。</p>
+    </div><!-- /#modalInclude -->
+    <div id="mdOverlay"></div>
+
+    <div class="container">
+        <div id="filterBtn">
+            <button class="allItem">ALL</button>
+            <button class="cats">CAT</button>
+            <button class="food">FOOD</button>
+            <button class="view">VIEW</button>
+        </div>
+        <div id="filterList">
+            <ul>
+                <li class="view">@Html.Image("~/images/view1.jpg")</li>
+                <li class="cats">@Html.Image("~/images/cats1.jpg")</li>
+                <li class="food">@Html.Image("~/images/food1.jpg")</li>
+                <li class="cats">@Html.Image("~/images/cats2.jpg")</li>
+                <li class="food">@Html.Image("~/images/food2.jpg")</li>
+                <li class="view">@Html.Image("~/images/view3.jpg")</li>
+                <li class="cats">@Html.Image("~/images/cats3.jpg")</li>
+                <li class="food">@Html.Image("~/images/food4.jpg")</li>
+                <li class="cats">@Html.Image("~/images/cats4.jpg")</li>
+                <li class="view">@Html.Image("~/images/view2.jpg")</li>
+                <li class="cats">@Html.Image("~/images/cats5.jpg")</li>
+                <li class="cats">@Html.Image("~/images/cats6.jpg")</li>
+                <li class="food">@Html.Image("~/images/food3.jpg")</li>
+                <li class="food">@Html.Image("~/images/food5.jpg")</li>
+                <li class="view">@Html.Image("~/images/view4.jpg")</li>
+            </ul>
+        </div>
+    </div>
+    <div class="listArea clearFloat">
+        <ul>
+            <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+            <li>これは高さを測るためのダミーテキストです。</li>
+        </ul>
+    </div><!-- /.listArea -->
+
+    <div class="container clearFloat">
+        <dl>
+            <dt>お名前【必須】</dt>
+            <dd><input type="text" value="" name=" name" class="required" /></dd>
+        </dl>
+        <dl>
+            <dt>電話番号</dt>
+            <dd><input type="text" value="" name="tel" /></dd>
+        </dl>
+        <div class="inputCount">
+            <div class="count">0</div>
+            <textarea vocab="" name="text" class="required"></textarea>
+        </div>
+    </div>
+</div><!-- /#wrapper -->
+<a href="#!" class="fadeBtn">BUTTON</a>
+<a href="#!" class="cssAnim ">BUTTON</a>
+<a href="#!" class="cssImg">@Html.Image("~/images/sample.jpg", "")</a>
+
+<div class="ticker ticker1">
+    <ul>
+        <li><a href="#5">2015/10/17 WORKSに制作実績を追加しました。</a></li>
+        <li><a href="#4">2015/06/08 ニュース／イベント情報を更新しました。</a></li>
+        <li><a href="#3">2015/05/26 スマートフォンアプリをリリースしました。</a></li>
+        <li><a href="#2">2015/02/02 キャリア採用の応募を開始しました。</a></li>
+        <li><a href="#1">2015/01/01 ホームページ公開しました。</a></li>
+    </ul>
+</div>
+
+<div class="ticker ticker2">
+    <ul>
+        <li><a href="#5">2015/10/17 WORKSに制作実績を追加しました。</a></li>
+        <li><a href="#4">2015/06/08 ニュース／イベント情報を更新しました。</a></li>
+        <li><a href="#3">2015/05/26 スマートフォンアプリをリリースしました。</a></li>
+        <li><a href="#2">2015/02/02 キャリア採用の応募を開始しました。</a></li>
+        <li><a href="#1">2015/01/01 ホームページ公開しました。</a></li>
+    </ul>
+</div>
+
+<div class="ticker ticker3">
+    <ul>
+        <li><a href="#5">2015/10/17 WORKSに制作実績を追加しました。</a></li>
+        <li><a href="#4">2015/06/08 ニュース／イベント情報を更新しました。</a></li>
+        <li><a href="#3">2015/05/26 スマートフォンアプリをリリースしました。</a></li>
+        <li><a href="#2">2015/02/02 キャリア採用の応募を開始しました。</a></li>
+        <li><a href="#1">2015/01/01 ホームページ公開しました。</a></li>
+    </ul>
+</div>
+
+
+<div style="padding: 10px; border: 1px solid #ccc; background: #fff;">
+    <ul class="hul">
+        <li class="hli"><a href="#!" class="ha">1</a></li>
+        <li class="hli"><a href="#!" class="ha">2</a></li>
+        <li class="current hli"><a href="#!" class="ha">3</a></li>
+        <li class="hli"><a href="#!" class="ha">4</a></li>
+        <li class="hli"><a href="#!" class="ha">5</a></li>
+    </ul>
+</div>
+
+<div style="padding: 10px; border: 1px solid #ccc; background: #fff;">
+    <ul style="text-align: center;">
+        <li style="display: inline-block; background: #ffc867; padding: 0;"><a style="display: block; width: 40px;" href="#">1</a></li>
+        <li style="display: inline-block; background: #ffc867; padding: 0;"><a style="display: block; width: 40px;" href="#">2</a></li>
+        <li style="display: inline-block; background: #ffc867; padding: 0;"><a style="display: block; width: 40px;" href="#">3</a></li>
+        <li style="display: inline-block; background: #ffc867; padding: 0;"><a style="display: block; width: 40px;" href="#">4</a></li>
+        <li style="display: inline-block; background: #ffc867; padding: 0;"><a style="display: block; width: 40px;" href="#">5</a></li>
+    </ul>
+</div>
+
