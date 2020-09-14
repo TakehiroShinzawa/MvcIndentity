@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace MvcIdentity.Controllers
 {
@@ -225,7 +226,7 @@ namespace MvcIdentity.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewBag.GoogleMapId = "https://maps.googleapis.com/maps/api/js?key=" + ConfigurationManager.AppSettings["GoogleMapId"] +"&callback=initMap";
             return View();
         }
         public ActionResult RoleIndex()
