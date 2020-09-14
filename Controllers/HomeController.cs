@@ -175,7 +175,14 @@ namespace MvcIdentity.Controllers
             return View(model);
         }
 
-
+        [HttpPost]
+        public ActionResult JsonTest(IEnumerable<JsonSample> sample)
+        {
+            var res =  sample.ToList();
+            res[0].Results[0].Score += 10;
+            res[0].Results[1].Score += 10;
+            return Json(res);
+        }
         public ActionResult Index()
         {
             Response.AppendCookie(new HttpCookie("email")
@@ -184,7 +191,27 @@ namespace MvcIdentity.Controllers
                 Expires = DateTime.Now.AddHours(1)
             });
             ViewBag.BackImage = $"~/Images/jumbo{DateTime.Now.Second % 5 + 1}.jpg";
-            return View();
+
+            var orgData = new List<JsonSample>()
+            {
+                new JsonSample
+                {
+                    Grade = 1,Class = 2, Name = "受刑者", Results = new List<Result>(){ new Result { Score=65, Subject = "数学" },new Result{ Score=77, Subject = "理科" } }
+                }
+            };
+            ViewBag.Json = orgData;
+            //var post_data = {
+            //    Grade: 1,
+            //    Class: 2,
+            //    Name: "受験者",
+            //    Results:
+            //[
+            //        { Subject: "数学", Score: 64 },
+            //        { Subject: "国語", Score: 78 },
+            //        { Subject: "英語", Score: 58 }
+            //    ]
+            //};
+           return View(orgData);
         }
 
         [MyAuthorize]

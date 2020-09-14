@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title =  "jQuery Page";
+﻿@model IEnumerable<MvcIdentity.Models.JsonSample>
+
+@{
+    ViewBag.Title = "jQuery Page";
 }
 <ul>
     <li>@Html.GlobalResesource("MysiteRes", "Greeting")</li>
@@ -180,9 +182,16 @@
     <a href="/Members/Index" class="modalBtn btn btn-primary">≫モーダルを開く</a>
     <a href="/Articles/Index" class="modaliFBtn btn btn-primary">≫Ifモーダルを開く</a>
     <br />
-    @Ajax.ActionLink("AjaxLink", "RoleIndex", "Home", 
-        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "contWrap",
-            OnBegin = "modalBefore",   OnComplete = "modalGo"}, new { @class = "btn btn-primary" })
+    @Ajax.ActionLink("AjaxLink", "RoleIndex", "Home",
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "contWrap",
+            OnBegin = "modalBefore",
+
+            OnComplete = "modalGo"
+        }, new { @class = "btn btn-primary" })
     <div id="modalInclude">
         <h2>モーダルウィンドウエリア</h2>
 
@@ -190,8 +199,52 @@
 
         <p>どんどんどんどん汽車は走って行きました。室中のひとたちは半分うしろの方へ倒れるようになりながら腰掛にしっかりしがみついていました。ジョバンニは思わずカムパネルラとわらいました。</p>
     </div><!-- /#modalInclude -->
-    <div id="mdOverlay"></div>
-
+    <br />
+    @{
+        var urldata = "jsonBegin('" + Url.Action("JsonTest", "Home") + "')";
+    }
+    @using (Ajax.BeginForm("Index", "Home", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        Confirm = urldata,
+        OnBegin = urldata
+    }
+    ))
+    {
+        @Html.AntiForgeryToken()
+        var sample = Model.ToList();
+        var maxCount = sample.Count();
+        <table style="border:1px solid; margin-bottom:4px;">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(Model => Model.Grade)</th>
+                    <th>@Html.DisplayNameFor(Model => Model.Class)</th>
+                    <th>@Html.DisplayNameFor(Model => Model.Name)</th>
+                    <th>数学</th>
+                    <th>理科</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(int i = 0; i < maxCount; i++)
+                {
+                    <tr>
+                        <td>@Html.EditorFor(d => sample[i].Grade, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(d => sample[i].Class, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(d => sample[i].Name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        @for(int j = 0; j < 2; j++)
+                        {
+                    <td>
+                        @Html.EditorFor(d => sample[i].Results[j].Score, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="hidden" name="sample[@i].Results[@j].Subject" value="@sample[i].Results[j].Subject" />
+                    </td>
+                           
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <input type="submit" value="JosonTest" class="btn btn-primary" />
+    }
     <div class="container">
         <div id="filterBtn">
             <button class="allItem">ALL</button>
@@ -303,3 +356,25 @@
     </ul>
 </div>
 
+@section Scripts {
+    <script>
+        function json_post() {
+            var url = '@Url.Action("JSONTest","Home")';
+            var post_data = {
+                Grade: 1,
+                Class: 2,
+                Name: "受験者",
+                Results: [
+                    { Subject: "数学", Score: 64 },
+                    { Subject: "国語", Score: 78 },
+                    { Subject: "英語", Score: 58 }
+                ]
+            };
+            $.ajax(
+                {
+
+                }
+            )
+        }
+    </script>
+}

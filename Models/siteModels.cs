@@ -1,9 +1,32 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 
 namespace MvcIdentity.Models
 {
+    public class JsonSample
+    {
+        public JsonSample()
+        {
+            Results = new List<Result>();
+        }
+        [DisplayName("学年")]
+        public int Grade { set; get; }
+        [DisplayName("クラス")]
+        public int Class { set; get; }
+        [DisplayName("名前")]
+        public string Name { set; get; }
+        public List<Result> Results { get; set; }
+    }
+
+    public class Result
+    {
+        [DisplayName("科目")]
+        public string Subject { set; get; }
+        [DisplayName("点数")]
+        public int Score { set; get; }
+    }
 
     public class MemberInfo
     {

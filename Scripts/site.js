@@ -208,7 +208,62 @@ function modalGo(context) {
     });
 }
 
+//JsonTest
+//json をフォームから作成する
+function jsonPserse(data) {
+    var preJonson = {};
+    var returnJson = [];
+    var tag = '';
+    for (idx = 0; idx < data.length; idx++) {
+        tag = String(data[idx].name);
+        if (tag.startsWith('sample')) {
+            preJonson[tag.substring(10)] = data[idx].value;
+        }
+    }
+    returnJson[0] = preJonson;
+    //JSON(returnJson).push(preJonson);
+    return returnJson;
+}
+//json 送信
+function jsonBegin(urldata) {
+    //jsonデータの作成
+    var url = urldata;
 
+    var post_data =
+    {
+        sample: [
+            {
+                Grade: 1,
+                Class: 2,
+                Name: "クライアントさん",
+                Results: [
+                    { Subject: "数学", Score: 64 },
+                    { Subject: "英語", Score: 80 }
+                ]
+            }
+        ]
+    };
+    var form_data = jsonPserse( $('form').serializeArray());
+    $.ajax(
+        {
+            url: url,
+            type: 'POST',
+            data: JSON.stringify(form_data),   // JSONの文字列に変換
+            dataType: 'json' ,
+            contentType: 'application/json',    // content-typeをJSONに指定する
+            error: function () { },
+            complete: function (data) {
+                var result = eval('(' + data.responseText + ')');
+                console.log(result[0].Results[1].Score);
+                $("#sample_0__Results_0__Score").val(result[0].Results[0].Score) ;
+                $("#sample_0__Results_1__Score").val(result[0].Results[1].Score);
+               alert("Jsonのデータに１０点足しました");
+
+            },
+        }
+    );
+    return false;
+}
 
 //画像読み込み後の実行の場合こちら
 $(window).on('load', function () {
